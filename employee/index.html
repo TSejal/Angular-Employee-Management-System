@@ -1,0 +1,118 @@
+<html ng-app="empApp">
+<head>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js'></script>
+    <script src="./js/app.js"></script>
+    <script src="./js/sideBar.js"></script>
+
+    <link href="./css/simple-sidebar.css" rel="stylesheet">
+
+</head>
+<body ng-controller="EmpListCtrl">
+
+        <div id="wrapper" class="toggled">
+    
+            <!-- Sidebar -->
+            <div id="sidebar-wrapper" ng-controller="SideBarCtrl">
+                <ul class="sidebar-nav">
+                    <li class="sidebar-brand">
+                        <a href="#">
+                           Employee Management
+                        </a>
+                    </li>
+                    <li ng-repeat="link in sidebarLinks">
+                        <a ng-href="{{link.url}}">{{link.text}}</a>
+                    </li>
+                  
+                </ul>
+            </div>
+            <!-- /#sidebar-wrapper -->
+    
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+
+                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Employee</button>
+                    <h1>Employee List</h1>                    
+                    <table class="table table-bordered">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                        <tr ng-repeat="emp in employess" 
+                        ng-class="{'success' : emp.id == 2}"
+                        >
+                            <td>{{emp.id}}</td>
+                            <td>{{emp.name}}</td>
+                            <td>{{emp.phone}}</td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="deleteEmployee(emp)">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </button>
+                                <button class="btn btn-warning">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </button>
+                            </td>
+                        </tr>
+
+                    </table>
+                    
+                    
+                    <a href="#menu-toggle" class="btn btn-secondary" id="menu-toggle">Toggle Menu</a>
+                </div>
+            </div>
+            <!-- /#page-content-wrapper -->
+    
+        </div>
+        <!-- /#wrapper -->
+
+
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+      
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add Employee</h4>
+            </div>
+            <div class="modal-body">
+
+                    <form>
+                        <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" ng-model="employee.name" class="form-control" id="name">
+                        </div>
+                        <div class="form-group">
+                          <label for="phone">Phone:</label>
+                          <input type="phone" ng-model="employee.phone" class="form-control" id="phone">
+                        </div>                                                
+                      </form>                
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary" ng-click="addEmployee()">Save</button>
+            </div>
+          </div>
+      
+        </div>
+      </div>        
+   
+        <!-- Menu Toggle Script -->
+        <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        </script>
+    
+    </body>
+
+</html>
